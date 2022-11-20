@@ -21,10 +21,21 @@ func main() {
 	fmt.Println("How many tickets you want to buy?")
 	fmt.Scan(&userTickets)
 
+	var bookings [10]string
+
+	bookings[0] = "Ranga"
+	bookings[1] = "Senal"
+	bookings[2] = "Semira"
+
 	fmt.Printf("Hey %v, Welcome to %v booking application\n", userName, confierenceName)
 	fmt.Printf("We have total of %v tickets and %v are still available\n", conferenceTickets, (remainingTickets - userTickets))
 	fmt.Println("Get your tickets here to attend")
 
-	fmt.Printf("User %v, has bought %v tickets", userName, userTickets)
+	fmt.Printf("User %v, has bought %v tickets\n", userName, userTickets)
+
+	fmt.Printf("The whole array: %v\n", bookings)
+	fmt.Printf("The first value: %v\n", bookings[0])
+	fmt.Printf("Array type: %T\n", bookings)
+	fmt.Printf("Array length %v", len(bookings))
 
 }
