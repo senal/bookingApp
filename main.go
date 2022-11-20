@@ -21,34 +21,36 @@ func main() {
 		fmt.Printf("How many tickets you want to buy?\n")
 		fmt.Scan(&userTickets)
 
-		if userTickets > ticketsRemains {
+		if userTickets < ticketsRemains {
+			bookings = append(bookings, firstName+" "+lastName)
+
+			ticketsRemains = ticketsRemains - userTickets
+
+			firstNames := []string{}
+
+			// _ in Go is to indicate not used variable
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				var firstName = names[0]
+				firstNames = append(firstNames, firstName)
+			}
+
+			fmt.Printf("Total number of bookings %v \n", len(bookings))
+			fmt.Printf("contains of bookings %v \n", bookings)
+			fmt.Printf("Total remains tickets %v \n", ticketsRemains)
+
+			fmt.Printf("First names of the bookings %v \n", firstNames)
+
+			noTicketRemaining := ticketsRemains <= 0
+			if noTicketRemaining {
+				fmt.Println("Our conference is booked up, come back next year")
+				break
+			}
+		} else if userTickets == ticketsRemains {
+			fmt.Println("Oh your request is exactly what we have in the list")
+		} else {
 			fmt.Printf("We only have %v tickets remaining, so you can't book %v tickets\n", ticketsRemains, userTickets)
-			continue
 		}
 
-		bookings = append(bookings, firstName+" "+lastName)
-
-		ticketsRemains = ticketsRemains - userTickets
-
-		firstNames := []string{}
-
-		// _ in Go is to indicate not used variable
-		for _, booking := range bookings {
-			var names = strings.Fields(booking)
-			var firstName = names[0]
-			firstNames = append(firstNames, firstName)
-		}
-
-		fmt.Printf("Total number of bookings %v \n", len(bookings))
-		fmt.Printf("contains of bookings %v \n", bookings)
-		fmt.Printf("Total remains tickets %v \n", ticketsRemains)
-
-		fmt.Printf("First names of the bookings %v \n", firstNames)
-
-		noTicketRemaining := ticketsRemains <= 0
-		if noTicketRemaining {
-			fmt.Println("Our conference is booked up, come back next year")
-			break
-		}
 	}
 }
