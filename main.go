@@ -38,4 +38,11 @@ func main() {
 	fmt.Printf("Array type: %T\n", bookings)
 	fmt.Printf("Array length %v", len(bookings))
 
+	// define slice (which is a dynamic array which increase number of elements)
+	subscribers := []string{}
+
+	subscribers = append(subscribers, "Jude", "Asanka")
+
+	fmt.Printf("Count of subscribers so far %v", len(subscribers))
+
 }
