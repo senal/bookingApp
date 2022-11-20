@@ -12,8 +12,14 @@ func main() {
 	/*
 		how to concatenate, strings
 	*/
-	userName = "Ranga"
-	userTickets = 5
+
+	/*
+		what is  a pointer: variable that points to the memory address of a another value
+	*/
+	fmt.Println("Enter your first name?")
+	fmt.Scan(&userName)
+	fmt.Println("How many tickets you want to buy?")
+	fmt.Scan(&userTickets)
 
 	fmt.Printf("Hey %v, Welcome to %v booking application\n", userName, confierenceName)
 	fmt.Printf("We have total of %v tickets and %v are still available\n", conferenceTickets, (remainingTickets - userTickets))
