@@ -12,8 +12,10 @@ func main() {
 
 	city := "London"
 
+	const conferenceName = "Beauty of GoLang"
+
 	// greet users
-	greetUsers()
+	greetUsers(conferenceName)
 
 	for {
 		var firstName string
@@ -45,9 +47,7 @@ func main() {
 				firstNames = append(firstNames, firstName)
 			}
 
-			fmt.Printf("Total number of bookings %v \n", len(bookings))
-			fmt.Printf("contains of bookings %v \n", bookings)
-			fmt.Printf("Total remains tickets %v \n", ticketsRemains)
+			printStats(bookings, ticketsRemains)
 
 			fmt.Printf("First names of the bookings %v \n", firstNames)
 
@@ -87,6 +87,12 @@ func main() {
 	}
 }
 
-func greetUsers() {
-	fmt.Println("Welcome to our conference")
+func greetUsers(confName string) {
+	fmt.Printf("Welcome to our %v conference in 2022\n", confName)
+}
+
+func printStats(bookings []string, ticketsRemains int) {
+	fmt.Printf("Total number of bookings %v \n", len(bookings))
+	fmt.Printf("contains of bookings %v \n", bookings)
+	fmt.Printf("Total remains tickets %v \n", ticketsRemains)
 }
