@@ -12,6 +12,9 @@ func main() {
 
 	city := "London"
 
+	// greet users
+	greetUsers()
+
 	for {
 		var firstName string
 		var lastName string
@@ -82,4 +85,8 @@ func main() {
 		}
 
 	}
+}
+
+func greetUsers() {
+	fmt.Println("Welcome to our conference")
 }
