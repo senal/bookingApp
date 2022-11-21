@@ -10,6 +10,8 @@ func main() {
 	var ticketsRemains int = totalTickets
 	bookings := []string{}
 
+	city := "London"
+
 	for {
 		var firstName string
 		var lastName string
@@ -20,6 +22,8 @@ func main() {
 		fmt.Scan(&lastName)
 		fmt.Printf("How many tickets you want to buy?\n")
 		fmt.Scan(&userTickets)
+		fmt.Println("Please provide which city you interested")
+		fmt.Scan(&city)
 
 		isValidName := len(firstName) >= 2 && len(lastName) >= 2
 		isValidTicketNumber := userTickets > 0 && userTickets <= ticketsRemains
@@ -49,6 +53,21 @@ func main() {
 				fmt.Printf("Our conference is booked up, come back next year \n")
 				break
 			}
+
+			// I need to know how to use string literals in GoLang
+			// instead repeating the same printf(..) to print the message, I need to construct the message in advance, then print
+
+			switch city {
+			case "London":
+				fmt.Printf("You selected %v city\n", city)
+			case "Colombo", "Negombo":
+				fmt.Printf("You selected Colombo and Negombo\n")
+			case "Singapore":
+				fmt.Printf("You selected %v city\n", city)
+			default:
+				fmt.Printf("You selected invalid city\n")
+			}
+
 		} else {
 			if !isValidName {
 				fmt.Printf("First or Last name you entered is too short \n")
