@@ -10,7 +10,7 @@ func main() {
 	var ticketsRemains int = totalTickets
 	bookings := []string{}
 
-	city := "London"
+	//city := "London"
 
 	const conferenceName = "Beauty of GoLang"
 
@@ -18,44 +18,27 @@ func main() {
 	greetUsers(conferenceName)
 
 	for {
-		var firstName string
-		var lastName string
-		var userTickets int
-		fmt.Printf("Please enter you First name:\n")
-		fmt.Scan(&firstName)
-		fmt.Printf("And your Last name:\n")
-		fmt.Scan(&lastName)
-		fmt.Printf("How many tickets you want to buy?\n")
-		fmt.Scan(&userTickets)
-		fmt.Println("Please provide which city you interested")
-		fmt.Scan(&city)
 
-		isValidName := len(firstName) >= 2 && len(lastName) >= 2
-		isValidTicketNumber := userTickets > 0 && userTickets <= ticketsRemains
+		noTicketRemaining := ticketsRemains <= 0
+		if noTicketRemaining {
+			fmt.Printf("Our conference is booked up, come back next year \n")
+			break
+		}
+
+		firstName, lastName, userTickets, city := getUserInputs()
+
+		ticketsRemains = ticketsRemains - userTickets
+
+		fmt.Printf("Remaning tickets %v \n", ticketsRemains)
+
+		isValidName, isValidTicketNumber := validateUserInput(firstName, lastName, userTickets, ticketsRemains)
 
 		if isValidName && isValidTicketNumber {
 			bookings = append(bookings, firstName+" "+lastName)
 
-			ticketsRemains = ticketsRemains - userTickets
-
-			firstNames := []string{}
-
-			// _ in Go is to indicate not used variable
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				var firstName = names[0]
-				firstNames = append(firstNames, firstName)
-			}
-
 			printStats(bookings, ticketsRemains)
-
+			firstNames := getFirstNames(bookings)
 			fmt.Printf("First names of the bookings %v \n", firstNames)
-
-			noTicketRemaining := ticketsRemains <= 0
-			if noTicketRemaining {
-				fmt.Printf("Our conference is booked up, come back next year \n")
-				break
-			}
 
 			// I need to know how to use string literals in GoLang
 			// instead repeating the same printf(..) to print the message, I need to construct the message in advance, then print
@@ -85,6 +68,51 @@ func main() {
 		}
 
 	}
+}
+
+func getUserInputs() (string, string, int, string) {
+	var firstName string
+	var lastName string
+	var city string
+	var userTickets int
+
+	fmt.Printf("Please enter you First name:\n")
+	fmt.Scan(&firstName)
+	fmt.Printf("And your Last name:\n")
+	fmt.Scan(&lastName)
+	fmt.Printf("How many tickets you want to buy?\n")
+	fmt.Scan(&userTickets)
+	fmt.Println("Please provide which city you interested")
+	fmt.Scan(&city)
+
+	return firstName, lastName, userTickets, city
+}
+
+func validateUserInput(firstName string, lastName string, userTickets int, ticketsRemains int) (bool, bool) {
+	isValidUserName := isValidUserInfo(firstName, lastName)
+	isValidTicketRequest := isValidTicketRequst(userTickets, ticketsRemains)
+
+	return isValidUserName, isValidTicketRequest
+}
+
+func isValidUserInfo(firstName string, lastName string) bool {
+	isValid := len(firstName) >= 2 && len(lastName) >= 2
+	return isValid
+}
+
+func isValidTicketRequst(userTickets int, ticketsRemains int) bool {
+	isValid := userTickets > 0 && userTickets <= ticketsRemains
+	return isValid
+}
+
+func getFirstNames(bookings []string) []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		var firstName = names[0]
+		firstNames = append(firstNames, firstName)
+	}
+	return firstNames
 }
 
 func greetUsers(confName string) {
